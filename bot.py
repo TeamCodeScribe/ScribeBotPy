@@ -23,6 +23,5 @@ async def ping(ctx):
 @bot.command()
 async def invite(ctx):
     link = await ctx.channel.create_invite()
-    await ctx.send(f"Here is the invite to your current server: {link} ")
+    await ctx.send(f"Here is the invite to {ctx.guild.name}: {link} ")
 
-bot.run(TOKEN)
