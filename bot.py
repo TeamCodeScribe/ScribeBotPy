@@ -25,3 +25,11 @@ async def invite(ctx):
     link = await ctx.channel.create_invite()
     await ctx.send(f"Here is the invite to {ctx.guild.name}: {link} ")
 
+@bot.command()
+async def welcome(ctx, *, arg):
+    role = discord.utils.get(ctx.guild.roles, name="Verified")
+    await ctx.author.add_roles(role)
+    if role not in ctx.author.roles:
+       await ctx.author.edit(nick=arg)
+
+bot.run(TOKEN)
