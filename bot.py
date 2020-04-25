@@ -38,11 +38,11 @@ async def clear(ctx, amt=5):
     await ctx.channel.purge(limit=(int(amt)+2))
 
 @bot.command()
-async def throwaway(ctx, arg):
-    if arg == "make" and "throwaway" not in str(ctx.guild.channels):
+async def throwaway(ctx):
+    if "throwaway" not in str(ctx.guild.channels):
         category = discord.utils.get(ctx.guild.channels, name="chat")
         await ctx.guild.create_text_channel("throwaway", category=category)
-    elif arg == "delete":
+    else:
         channel = discord.utils.get(ctx.guild.channels, name="throwaway")
         await channel.delete()
 bot.run(TOKEN)
