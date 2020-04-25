@@ -20,5 +20,9 @@ async def on_member_join(member):
 async def ping(ctx):
     await ctx.send("Pong")
 
-bot.run(TOKEN)
+@bot.command()
+async def invite(ctx):
+    link = await ctx.channel.create_invite()
+    await ctx.send(f"Here is the invite to your current server: {link} ")
 
+bot.run(TOKEN)
