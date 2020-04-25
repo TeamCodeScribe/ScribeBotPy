@@ -32,4 +32,9 @@ async def welcome(ctx, *, arg):
     if role not in ctx.author.roles:
        await ctx.author.edit(nick=arg)
 
+@bot.command()
+async def clear(ctx, amt=5):
+    await ctx.send(f"Deleting {amt} messages")
+    await ctx.channel.purge(limit=(int(amt)+2))
+
 bot.run(TOKEN)
