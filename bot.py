@@ -6,7 +6,7 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 
-bot = commands.Bot(command_prefix='>')
+bot = commands.Bot(command_prefix='sudo ')
 
 
 @bot.event
@@ -36,12 +36,15 @@ async def welcome(ctx, *, arg):
 
 @bot.command()
 @commands.has_permissions(manage_messages=True)
-async def clear(ctx, amt=5):
-    await ctx.send(f"Deleting {amt} messages")
+async def clear(ctx, amt=5.0):
+    if amt > 50.0:
+        amt = 50.0
+        await ctx.send(f"Too many messages")
+    await ctx.send(f"Deleting {str(int(amt))} messages")
     await ctx.channel.purge(limit=(int(amt)+2))
 
 @bot.command()
-async def throwaway(ctx):
+async def mkdir(ctx):
     if "throwaway" not in str(ctx.guild.channels):
         category = discord.utils.get(ctx.guild.channels, name="chat")
         await ctx.guild.create_text_channel("throwaway", category=category)
@@ -81,6 +84,6 @@ async def warn(ctx, user: discord.Member, reason, level = 1):
 @warn.error
 @clear.error
 async def missing_perms(ctx, error):
-    await ctx.send("Missing permissions. Please contact an administrator.")
+    await ctx.send(f"{ctx.author.mention} is not in the sudoers file. This incident will be reported.")
 
 bot.run(TOKEN)
