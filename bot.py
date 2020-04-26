@@ -78,6 +78,9 @@ async def warn(ctx, user: discord.Member, reason, level = 1):
         await ctx.send(embed=embed)
         await user.ban(reason=reason, delete_message_days=0)
 
-
+@warn.error
+@clear.error
+async def missing_perms(ctx, error):
+    await ctx.send("Missing permissions. Please contact an administrator.")
 
 bot.run(TOKEN)
