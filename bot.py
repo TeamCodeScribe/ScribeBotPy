@@ -28,9 +28,9 @@ async def invite(ctx):
 @bot.command()
 async def welcome(ctx, *, arg):
     role = discord.utils.get(ctx.guild.roles, name="Verified")
-    await ctx.author.add_roles(role)
     if role not in ctx.author.roles:
-       await ctx.author.edit(nick=arg)
+        await ctx.author.edit(nick=arg)
+        await ctx.author.add_roles(role)
 
 @bot.command()
 async def clear(ctx, amt=5):
@@ -45,4 +45,17 @@ async def throwaway(ctx):
     else:
         channel = discord.utils.get(ctx.guild.channels, name="throwaway")
         await channel.delete()
+
+@bot.command()
+async def warn(ctx, user: discord.Member, reason, level = 1):
+    warn = level
+    for role in user.roles:
+        if "Warning" in role.name:
+            warn += 1
+    embed=discord.Embed(title="Warned", description= f"Warned {user.mention} for {reason}", color=0xff0000)
+    embed.set_author(name="ScribeBot")
+    embed.add_field(name="Warning Number", value=warn, inline=True)
+    await ctx.send(embed=embed)
+
+
 bot.run(TOKEN)
