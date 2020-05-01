@@ -8,15 +8,11 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 
 bot = commands.Bot(command_prefix='sudo ')
 
-
-@bot.event
-async def on_ready():
-    print(f"{bot.user.name} connected")
-
 @bot.event
 async def on_member_join(member):
     await member.create_dm()
-    await member.dm_channel.send(f"{member.name}")
+    await member.dm_channel.send(f'Welcome {member.name}, do ```sudo welcome [First Name] [Last Name (optional)]``` to see the rest of the channels!')
+
 
 @bot.command()
 async def ping(ctx):
@@ -83,7 +79,7 @@ async def warn(ctx, user: discord.Member, reason, level = 1):
 
 @bot.command()
 async def sl(ctx):
-    await ctx.send("```                          (  ) (@@) ( )  (@)  ()    @@    O     @     O     @ \n                 (@@@) \n             (    ) \n          (@@@@) \n \n        (   ) \n        ====         ________                ___________ \n    _D _|  |_______/        \__I_I_____===__|_________| \n    |(_)---  |   H\________/ |   |        =|___ ___|      _________________\n    /     |  |   H  |  |     |   |         ||_| |_||     _|                \___ \n   |      |  |   H  |__--------------------| [___] |   =| \n   | ________|___H__/__|_____/[][]~\_______|       |   -| \n   |/ |   |-----------I_____I [][] []  D   |=======|____|______________________ \n  __/ =| o |=-~~\  /~~\  /~~\  /~~\ ____Y___________|__|________________________ \n   |/-=|___|=O=====O=====O=====O   |_____/~\___/          |_D__D__D_|  |_D__D__D \n    \_/      \__/  \__/  \__/  \__/      \_/               \_/   \_/    \_/   \ ``` ") 
+    await ctx.send("```                          (  ) (@@) ( )  (@)  ()    @@    O     @     O     @ \n                  (@@@) \n              (    ) \n           (@@@@) \n \n         (   ) \n         ====        ________                ___________ \n     _D _|  |_______/        \__I_I_____===__|_________| \n     |(_)---  |   H \________/ |   |        =|___ ___|      _________________\n     /     |  |   H   |  |     |   |         ||_| |_||     _|                \___ \n    |      |  |   H   |__--------------------| [___] |   =| \n    | ________|___H __/__|_____/[][]~\_______|       |   -| \n    |/ |   | -----------I_____I [][] []  D   |=======|____|______________________ \n  __/ =| o |=-~~\  /~~\  /~~\  /~~\ ____Y___________|__|________________________ \n   |/-=|___|=O=====O=====O=====O   |_____/~\___/          |_D__D__D_|  |_D__D__D \n    \_/      \__/  \__/  \__/  \__/      \_/               \_/   \_/    \_/   \ ``` ") 
 
 @warn.error
 @clear.error
