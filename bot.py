@@ -13,6 +13,9 @@ async def on_member_join(member):
     await member.create_dm()
     await member.dm_channel.send(f'Welcome {member.name}, do ```sudo welcome [First Name] [Last Name (optional)]``` to see the rest of the channels!')
 
+@bot.event
+async def on_ready():
+    await bot.send("Logged in!")
 
 @bot.command()
 async def ping(ctx):
