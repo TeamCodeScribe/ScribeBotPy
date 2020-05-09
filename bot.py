@@ -29,7 +29,8 @@ async def invite(ctx):
 @bot.command()
 async def welcome(ctx, *, arg):
     role = discord.utils.get(ctx.guild.roles, name="Verified")
-    if role not in ctx.author.roles:
+    role2 = discord.utils.get(ctx.guild.roles, name="MUTED")
+    if role not in ctx.author.roles and role2 not in ctx.author.roles:
         await ctx.author.edit(nick=arg)
         await ctx.author.add_roles(role)
 
@@ -50,6 +51,12 @@ async def mkdir(ctx):
     else:
         channel = discord.utils.get(ctx.guild.channels, name="throwaway")
         await channel.delete()
+
+@bot.command()
+@commands.has_permissions(manage_messages=True)
+async def mute(ctx, user: discord.Member):
+    role = discord.utils.get(ctx.guild.roles, name="Verified")
+    await user.remove_roles(role)
 
 @bot.command()
 async def ban(ctx, user: discord.Member):
