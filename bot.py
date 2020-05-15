@@ -2,6 +2,7 @@ import os
 import discord
 from dotenv import load_dotenv
 from discord.ext import commands
+
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
@@ -31,5 +32,10 @@ async def welcome(ctx, *, arg):
     await ctx.author.add_roles(role)
     if role not in ctx.author.roles:
        await ctx.author.edit(nick=arg)
+
+@bot.command()
+async def prune(ctx, arg):
+    role = discord.utils.get(ctx.guild.roles, name="Admin")
+
 
 bot.run(TOKEN)
