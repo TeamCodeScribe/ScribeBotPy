@@ -160,7 +160,7 @@ async def prune(ctx, arg):
     role = discord.utils.get(ctx.guild.roles, name="Admin")
 
 
-@client.event
+@bot.event
 async def on_message(message):
     if message.author == bot.user:
         return
@@ -181,5 +181,10 @@ async def on_message(message):
         if len(nick) > 32:
             nick = nick[0:30] + "..."
         await message.author.edit(nick=nick, reason="StreamNick opt-in")
+
+
+    if message.content.startswith("sudo "):
+        await bot.process_commands(message)
+        return
 
 bot.run(TOKEN)
