@@ -132,7 +132,7 @@ async def stream(ctx):
         await ctx.guild.create_role(name="StreamNick",
             color=discord.Color.from_rgb( 255, 85, 85))
     
-    if not (ctx.author.roles.contains(streamnick)):
+    if not (streamnick in ctx.author.roles):
         await ctx.author.add_roles(streamnick, reason="Opted into StreamNick")
 
     await ctx.send("You've opted into the StreamNick!")
@@ -146,7 +146,7 @@ async def nostream(ctx):
         await ctx.guild.create_role(name="StreamNick",
             color=discord.Color.from_rgb( 255, 85, 85))
     
-    if (ctx.author.roles.contains(streamnick)):
+    if (streanick in ctx.author.roles):
         await ctx.author.remove_roles(streamnick, reason="Opted out of StreamNick")
 
     await ctx.send("You've opted out of the StreamNick!")
@@ -176,7 +176,7 @@ async def on_message(message):
             color=discord.Color.from_rgb( 255, 85, 85))
         return
 
-    if message.author.roles.contains(streamnick):
+    if streamnick in message.author.roles:
         nick = message.content
         if len(nick) > 32:
             nick = nick[0:30] + "..."
