@@ -142,10 +142,25 @@ async def nostream(ctx):
     streamnick = discord.utils.get(ctx.guild.roles
         , name="StreamNick")
 
+    streamlock = discord.utils.get(ctx.guild.roles
+        , name="StreamLock")
+
     if streamnick == None:
         await ctx.guild.create_role(name="StreamNick",
             color=discord.Color.from_rgb( 255, 85, 85))
+        streamnick = discord.utils.get(ctx.guild.roles
+            , name="StreamNick")
+
+    if streamlock == None:
+        await ctx.guild.create_role(name="StreamLock",
+            color=0x8be9fd)
+        streamlock = discord.utils.get(ctx.guild.roles
+            , name="StreamLock")
     
+    if (streamlock in ctx.author.roles):
+        await ctx.send("***NYET***")
+        return
+
     if (streamnick in ctx.author.roles):
         await ctx.author.remove_roles(streamnick, reason="Opted out of StreamNick")
 
@@ -181,7 +196,6 @@ async def on_message(message):
         if len(nick) > 32:
             nick = nick[0:30] + "..."
         await message.author.edit(nick=nick, reason="StreamNick opt-in")
-
 
     if message.content.startswith("sudo "):
         await bot.process_commands(message)
