@@ -146,7 +146,7 @@ async def nostream(ctx):
         await ctx.guild.create_role(name="StreamNick",
             color=discord.Color.from_rgb( 255, 85, 85))
     
-    if (streanick in ctx.author.roles):
+    if (streamnick in ctx.author.roles):
         await ctx.author.remove_roles(streamnick, reason="Opted out of StreamNick")
 
     await ctx.send("You've opted out of the StreamNick!")
