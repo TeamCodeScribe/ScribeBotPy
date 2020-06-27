@@ -153,15 +153,14 @@ async def nostream(ctx):
 
 
     
-    
-
-@bot.command()
-async def prune(ctx, arg):
-    role = discord.utils.get(ctx.guild.roles, name="Admin")
-
 
 @bot.event
 async def on_message(message):
+
+    if message.content.startswith("sudo "):
+        await bot.process_commands(message)
+        return
+
     if message.author == bot.user:
         return
     if type(message.channel) is discord.DMChannel or type(
@@ -182,9 +181,5 @@ async def on_message(message):
             nick = nick[0:30] + "..."
         await message.author.edit(nick=nick, reason="StreamNick opt-in")
 
-
-    if message.content.startswith("sudo "):
-        await bot.process_commands(message)
-        return
 
 bot.run(TOKEN)
