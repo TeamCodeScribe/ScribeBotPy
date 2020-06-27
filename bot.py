@@ -178,7 +178,7 @@ async def on_message(message):
     if streamnick in message.author.roles:
         nick = message.content
         if len(nick) > 32:
-            nick = nick[0:30] + "..."
+            nick = nick[0:29] + "..."
         await message.author.edit(nick=nick, reason="StreamNick opt-in")
 
 
